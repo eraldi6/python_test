@@ -1,0 +1,283 @@
+import turtle
+import math
+
+wn = turtle.Screen()      # Creates a playground for turtles
+alex = turtle.Turtle()    # Create a turtle, assign to alex
+alex.up()
+alex.setpos(-400,500)
+
+
+alex.down()
+alex.forward(80)          # Tell alex to move forward by 50 units
+alex.right(90)             # Tell alex to turn by 90 degrees
+alex.forward(15)  
+alex.right(90)   
+alex.forward(65)  
+alex.left(90)
+alex.forward(27.5) 
+alex.left(90) 
+alex.forward(57)
+alex.right(90)
+alex.forward(15)
+alex.right(90)
+alex.forward(57)
+alex.left(90)
+alex.forward(27.5)
+alex.left(90)
+alex.forward(65)
+alex.right(90)
+alex.forward(15)
+alex.right(90)
+alex.forward(80)
+alex.right(90)
+alex.forward(100)
+alex.right(90)
+alex.up()
+print("E")
+
+
+alex.goto(-300,500)
+alex.down()
+alex.rt(90)
+alex.fd(100)
+alex.lt(90)
+alex.fd(80)
+alex.lt(90)
+alex.fd(15)
+alex.lt(90)
+alex.fd(65)
+alex.rt(90)
+alex.fd(85)
+alex.lt(90)
+alex.fd(15)
+alex.rt(180)
+alex.up()
+print("L")
+
+alex.setpos(-200,500)
+
+
+alex.down()
+alex.forward(80)          # Tell alex to move forward by 50 units
+alex.right(90)             # Tell alex to turn by 90 degrees
+alex.forward(15)  
+alex.right(90)   
+alex.forward(65)  
+alex.left(90)
+alex.forward(27.5) 
+alex.left(90) 
+alex.forward(57)
+alex.right(90)
+alex.forward(15)
+alex.right(90)
+alex.forward(57)
+alex.left(90)
+alex.forward(27.5)
+alex.left(90)
+alex.forward(65)
+alex.right(90)
+alex.forward(15)
+alex.right(90)
+alex.forward(80)
+alex.right(90)
+alex.forward(100)
+alex.right(90)
+alex.up()
+print("E")
+
+
+alex.setpos(-100,500)
+alex.down()
+alex.fd(15)
+alex.setpos(-35,425)
+alex.lt(90)
+alex.fd(75)
+alex.rt(90)
+alex.fd(15)
+alex.rt(90)
+alex.fd(100)
+alex.rt(90)
+alex.fd(15)
+alex.setpos(-85,475)
+alex.lt(90)
+alex.fd(75)
+alex.rt(90)
+alex.fd(15)
+alex.rt(90)
+alex.fd(100)
+alex.rt(90)
+alex.up()
+print("N")
+
+
+
+alex.goto(20,500)
+
+alex.down()
+alex.fd(15)
+alex.rt(75)
+
+print(alex.pos())
+
+h1=100
+h2=42.5
+
+
+c=(h1/math.cos(math.radians(15)))
+alex.fd(c)
+
+alex.rt(105)
+alex.fd(15)
+alex.rt(75)
+a=h2/math.cos(math.radians(15))
+alex.fd(a)
+print(alex.pos())
+alex.lt(75)
+alex.setpos(20,442.5)
+alex.lt(75)
+alex.fd(a)
+print(alex.pos())
+alex.rt(75)
+alex.fd(15)
+alex.rt(105)
+alex.fd(c)
+print(alex.pos())
+alex.up()
+
+
+
+print("A")
+
+
+alex.setpos(120,400)
+
+
+
+wn.mainloop()             # Wait for user to close window
+
+
+
+
+import turtle
+
+# This program draws a grid of rectangles with specified dimensions and margins.
+# The grid is created using the turtle graphics library in Python.
+# The program defines functions to draw rectangles and rows of rectangles,
+# as well as a main function to create the entire grid.
+# Key points are using 3 types of drills to create a basic outline, theoretic, 
+# the edges and the corners, and the drilling (which makes the separation between
+# the frame and the inside easier)
+
+def rect(turtle_name,x,y):
+    turtle_name.down()
+    for i in range(2):
+        turtle_name.fd(x)
+        turtle_name.rt(90)
+        turtle_name.fd(y)
+        turtle_name.rt(90)
+    turtle_name.up()
+
+def row(nobx,inn,turtle1,x,y):  #nobx=number of boxes, inn=inner margin
+    for i in range(nobx-1):
+        rect(turtle1,x,y)
+        turtle1.fd(x)
+        turtle1.fd(inn)
+    rect(turtle1,x,y)
+
+def corners(turtle_name,x,y):
+    turtle_name.up()
+    for i in range(4):
+        if i%2==0:
+            a=x
+        else:
+            a=y
+        corner=turtle_name.pos()
+        turtle_name.fd(10)
+        turtle_name.rt(90)
+        turtle_name.fd(10)
+        turtle_name.lt(90)
+        turtle_name.down()
+        turtle_name.setpos(corner)
+        turtle_name.up()
+        turtle_name.fd(a)
+        corner=turtle_name.pos()
+        turtle_name.rt(90)
+
+def row_of_corners(nobx,inn, turtle2,x,y): 
+    for i in range(nobx-1):
+        corners(turtle2,x,y)
+        turtle2.fd(x)
+        turtle2.fd(inn)
+    corners(turtle2,x,y)
+
+
+def sequence1(turtle_name,lpx,lpy,nobx, noby,m,inn):   #lpx=x, lpy=y, nob=number of boxes, m=outter margin, i=inner margin 
+    turtle_name.up()
+    turtle_name.setpos(-400,300)
+    x_seq=(lpx-(2*m)-inn*(nobx-1))/nobx
+    y_seq=(lpy-(2*m)-inn*(noby-1))/noby
+
+    if turtle_name==corner_turtle:
+        turtle_name.forward(m)
+        turtle_name.rt(90)
+        turtle_name.fd(m)
+        turtle_name.lt(90)
+        home=turtle_name.pos()
+        for i in range(noby):
+            row_of_corners(nobx,inn, turtle_name,x_seq,y_seq)   
+            turtle_name.setpos(home)
+            turtle_name.rt(90)
+            turtle_name.fd(y_seq)
+            turtle_name.fd(inn)
+            turtle_name.lt(90)
+            home=turtle_name.pos()     
+    else:
+        if turtle_name==outline_turtle:
+            rect(turtle_name,lpx,lpy)
+        elif turtle_name==edge_turtle:
+            m+=10
+            inn+=20
+        elif turtle_name==drilling_turtle:
+            m+=15
+            inn+=30
+
+        x_seq=(lpx-(2*m)-inn*(nobx-1))/nobx
+        y_seq=(lpy-(2*m)-inn*(noby-1))/noby
+        turtle_name.forward(m)
+        turtle_name.rt(90)
+        turtle_name.fd(m)
+        turtle_name.lt(90)
+        home=turtle_name.pos()
+        for i in range(noby):
+            row(nobx,inn,turtle_name,x_seq,y_seq)    
+            turtle_name.setpos(home)
+            turtle_name.rt(90)
+            turtle_name.fd(y_seq)
+            turtle_name.fd(inn)
+            turtle_name.lt(90)
+            home=turtle_name.pos()
+
+outline_turtle=turtle.Turtle()
+outline_turtle.color("red")
+outline_turtle.pensize(1)
+outline_turtle.speed(30)
+edge_turtle=turtle.Turtle()
+edge_turtle.color("blue")
+edge_turtle.pensize(20)
+edge_turtle.speed(30)
+corner_turtle=turtle.Turtle()
+corner_turtle.color("yellow")
+corner_turtle.pensize(1)
+corner_turtle.speed(30)
+drilling_turtle=turtle.Turtle()
+drilling_turtle.color("orange")
+drilling_turtle.pensize(10)
+drilling_turtle.speed(30)
+wn=turtle.Screen()
+
+array=[outline_turtle,edge_turtle,drilling_turtle,corner_turtle]
+
+for i in array:
+    sequence1(i,800,500,3,2,40,20)
+
+wn.mainloop()
